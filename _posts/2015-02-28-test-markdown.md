@@ -1,31 +1,24 @@
 ---
 layout: post
 title: Movie Vizualization
-subtitle: Each post also has a subtitle
+subtitle: Explaining the data lifecycle 
 gh-repo: mritzing/movieVizFinal
 tags: [visualization]
 ---
-The goal of this project was the create visualizations of the films avaialable for streaming from Virginia Tech [here](https://digitalcampus-swankmp-net.ezproxy.lib.vt.edu/vtc299211/admin/Login?returnUrl=/vtc299211/Admin).   In order to build the visualizations the data collected and process through the usage of python [scripts](https://github.com/mritzing/movieVizFinal) and then
+The goal of this project was the create interactive visualizations of the films avaialable for streaming from Virginia Tech [here](https://digitalcampus-swankmp-net.ezproxy.lib.vt.edu/vtc299211/admin/Login?returnUrl=/vtc299211/Admin).   In order to build the visualizations the data collected and process through the usage of python [scripts](https://github.com/mritzing/movieVizFinal) and then
 the visualizations were created in Tableau and Gephi.  All files used for this project can be found [here](https://github.com/mritzing/movieVizFinal).
-**Here is some bold text**
 
-## Here is a secondary heading
+## Utilizing Basic Programming to Improve Workflow
+Words, small scripts (less scary), can be used to greatly improve workflow for repetative tasks, demys
 
-Here's a useless table:
+## Visualizations 
+The visualizations for this project were created in Tableau (the interactive dashboard) and Gephi (the network graph) both these programs are free to download and additional training can be found in the library's [Data Visualization Studio](https://datavizstudio.lib.vt.edu/)
 
-| Number | Next number | Previous number |
-| :------ |:--- | :--- |
-| Five | Six | Four |
-| Ten | Eleven | Nine |
-| Seven | Eight | Six |
-| Two | Three | One |
+## Swank Database
 
+Virginia Tech offers **900+** movies available to stream 
+Here's a code chunk
 
-How about a yummy crepe?
-
-![Crepe](http://s3-media3.fl.yelpcdn.com/bphoto/cQ1Yoa75m2yUFFbY2xwuqw/348s.jpg)
-
-Here's a code chunk:
 
 ~~~
 var foo = function(x) {
