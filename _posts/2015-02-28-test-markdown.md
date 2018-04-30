@@ -1,14 +1,12 @@
 ---
 layout: post
-title: Test markdown
+title: Movie Vizualization
 subtitle: Each post also has a subtitle
-gh-repo: daattali/beautiful-jekyll
-gh-badge: [star, fork, follow]
-tags: [test]
+gh-repo: mritzing/movieVizFinal
+tags: [visualization]
 ---
-
-You can write regular [markdown](http://markdowntutorial.com/) here and Jekyll will automatically convert it to a nice webpage.  I strongly encourage you to [take 5 minutes to learn how to write in markdown](http://markdowntutorial.com/) - it'll teach you how to transform regular text into bold/italics/headings/tables/etc.
-
+The goal of this project was the create visualizations of the films avaialable for streaming from Virginia Tech [here](https://digitalcampus-swankmp-net.ezproxy.lib.vt.edu/vtc299211/admin/Login?returnUrl=/vtc299211/Admin).   In order to build the visualizations the data collected and process through the usage of python [scripts](https://github.com/mritzing/movieVizFinal) and then
+the visualizations were created in Tableau and Gephi.  All files used for this project can be found [here](https://github.com/mritzing/movieVizFinal).
 **Here is some bold text**
 
 ## Here is a secondary heading
