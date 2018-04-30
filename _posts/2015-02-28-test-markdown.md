@@ -16,10 +16,13 @@ The visualizations for this project were created in Tableau (the interactive das
 
 ## Swank Database
 
-Virginia Tech offers **900+** movies available to stream 
-Here's a code chunk
+Virginia Tech offers **900+** movies available to stream [here](https://digitalcampus-swankmp-net.ezproxy.lib.vt.edu/vtc299211/admin/Login?returnUrl=/vtc299211/Admin)
+
+![alt text](https://github.com/mritzing/movieVizFinal/blob/master/RepoImages/movieDB.PNG?raw=true)
 
 
+
+code chunk
 ~~~
 var foo = function(x) {
   return(x + 5);
