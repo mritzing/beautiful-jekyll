@@ -1,72 +1,56 @@
----
-layout: page
-title: Matthew Ritzinger
-subtitle:  I make things
-use-site-title: true
----
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset="UTF-8">
+	<title>Gen Art Test</title>
+	<style type = "text/css">
+	body{
+	    padding:0;
+	    text-align:center;
+	}
+	canvas {
+		border:15px solid black;
+		padding: 35px;
+		background-color: white;
+		margin: 25px;
+		-webkit-box-shadow: 3px 3px 5px #000;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+		-moz-box-shadow:    3px 3px 5px #000;  /* Firefox 3.5 - 3.6 */
+		box-shadow:  -3px 3px 5px 1px #808080	;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+	}
+	#fadeout {
+		opacity: 1;
+		transition: 1s opacity;
+		text-align: center;
+		font-size:30px;
+		font-family: arial;
+	    position: fixed;
+        margin: auto;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    z-index:99;
+	}
+</style> 
+</head>
+<body id = "foo" bgcolor="#EAF8FF" style = "padding-left:30px;padding-bottom:30px">
 
-<div class="posts-list">
-  {% for post in paginator.posts %}
-  <article class="post-preview">
-    <a href="{{ post.url | prepend: site.baseurl }}">
-	  <h2 class="post-title">{{ post.title }}</h2>
+	
+	<script src="test.js"></script>
+	<script type = "text/javascript">
+		document.body.addEventListener("click", function (evt) {
+		clear();
+    	run();
+	});</script>
 
-	  {% if post.subtitle %}
-	  <h3 class="post-subtitle">
-	    {{ post.subtitle }}
-	  </h3>
-	  {% endif %}
-    </a>
-
-    <p class="post-meta">
-      Posted on {{ post.date | date: "%B %-d, %Y" }}
-    </p>
-
-    <div class="post-entry-container">
-      {% if post.image %}
-      <div class="post-image">
-        <a href="{{ post.url | prepend: site.baseurl }}">
-          <img src="{{ post.image }}">
-        </a>
-      </div>
-      {% endif %}
-      <div class="post-entry">
-        {{ post.excerpt | strip_html | xml_escape | truncatewords: site.excerpt_length }}
-        {% assign excerpt_word_count = post.excerpt | number_of_words %}
-        {% if post.content != post.excerpt or excerpt_word_count > site.excerpt_length %}
-          <a href="{{ post.url | prepend: site.baseurl }}" class="post-read-more">[Read&nbsp;More]</a>
-        {% endif %}
-      </div>
-    </div>
-
-    {% if post.tags.size > 0 %}
-    <div class="blog-tags">
-      Tags:
-      {% if site.link-tags %}
-      {% for tag in post.tags %}
-      <a href="{{ site.baseurl }}/tags#{{- tag -}}">{{- tag -}}</a>
-      {% endfor %}
-      {% else %}
-        {{ post.tags | join: ", " }}
-      {% endif %}
-    </div>
-    {% endif %}
-
-   </article>
-  {% endfor %}
-</div>
-
-{% if paginator.total_pages > 1 %}
-<ul class="pager main-pager">
-  {% if paginator.previous_page %}
-  <li class="previous">
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
-  </li>
-  {% endif %}
-  {% if paginator.next_page %}
-  <li class="next">
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
-  </li>
-  {% endif %}
-</ul>
-{% endif %}
+	<script type = "text/javascript">
+		window.onload = function() {
+	  		window.setTimeout(fadeout, 1000); //1 seconds
+		}
+		function fadeout() {
+			document.getElementById('fadeout').style.opacity = '0';
+		} 
+	</script>
+	<div id="fadeout">Click Me</div>
+</body>
+</html>
