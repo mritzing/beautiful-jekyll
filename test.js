@@ -6,25 +6,30 @@ context.lineTo(endX, endY);
 context.stroke();
 */
 
-run();
 function clear() {
-	var node = document.getElementById('foo');
-	while (node.hasChildNodes()) {
-    	node.removeChild(node.firstChild);
-	}
-
+	document.querySelectorAll('canvas').forEach(function(a){
+		a.remove()
+	})
 }
 function run() {
+	clear();
 	context = createCanvas();
-	squareTile(context, 40, true);
+	var levels =parseFloat(document.getElementById('number').value);
+	squareTile(context, levels, true);
 	context = createCanvas();
-	squareTile(context, 40, false);
+	squareTile(context, levels, false);
 	context = createCanvas();
-	rectTile(context, 40, 50);
+	rectTile(context, levels, 50);
+	console.log("uh")
 	context = createCanvas();
-	arcTile(context, 10);
+	arcTile(context, levels/2);
 	context = createCanvas();
-	joyD(context);
+	if (levels < 5){
+		joyD(context, 5/4);
+	}
+	else {
+		joyD(context, levels/4);
+	}
 }
 
 function createCanvas() {
@@ -84,13 +89,17 @@ function squareTile(context, dimension, diag) {
 
 function rectTile(context, rows, segments) {
 	// height /width per tile
+	console.log(rows);
 	var height = context.canvas.height / rows;
+	console.log(height);
 	var width = context.canvas.width / segments;
 	for (var r = 1; r < rows - 1; r++) {
 		prevY = r * height + height / 2;
 		for (var c = 0; c < segments; c++) {
 			midY = r * height + height / 2;
+			console.log(rows,segments, r,c)
 			var ratio = (r + c) / (rows + segments)
+			console.log(ratio);
 			randNum = (Math.random() * 3 * ratio ** 3 * height);
 			//var ratio = Math.log( (r* c ) )/ Math.log((rows * segments));
 			//console.log(ratio);
@@ -134,28 +143,6 @@ function arcTile(context, dimension) {
 	}
 }
 
-function rectTile(context, rows, segments) {
-	// height /width per tile
-	var height = context.canvas.height / rows;
-	var width = context.canvas.width / segments;
-	for (var r = 1; r < rows - 1; r++) {
-		prevY = r * height + height / 2;
-		for (var c = 0; c < segments; c++) {
-			midY = r * height + height / 2;
-			var ratio = (r + c) / (rows + segments)
-			randNum = (Math.random() * 3 * ratio ** 3 * height);
-			//var ratio = Math.log( (r* c ) )/ Math.log((rows * segments));
-			//console.log(ratio);
-			//randNum = randNum * ratio ;
-			midY = midY + randNum
-			if (midY > context.canvas.height) {
-				midY = context.canvas.height;
-			}
-			drawLine(context, c * width, prevY, c * width + width, midY);
-			prevY = midY;
-		}
-	}
-}
 
 //not finished
 function curveRep(context, segments) {
@@ -185,8 +172,7 @@ function curveRep(context, segments) {
 	}
 }
 //now with lists
-function joyD(context) {
-	var step = 10
+function joyD(context, step) {
 	var size = context.canvas.width;
 	lines = [];
 	for (var i = step; i <= size - step; i += step) {
