@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset="UTF-8">
+	<title>Gen Art Test</title>
+	<style type = "text/css">
+	body{
+	    padding:0;
+	    text-align:center;
+	}
+	canvas {
+		border:15px solid black;
+		padding: 35px;
+		background-color: white;
+		margin: 25px;
+		-webkit-box-shadow: 3px 3px 5px #000;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+		-moz-box-shadow:    3px 3px 5px #000;  /* Firefox 3.5 - 3.6 */
+		box-shadow:  -3px 3px 5px 1px #808080	;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+	}
+	#fadeout {
+		opacity: 1;
+		transition: 1s opacity;
+		text-align: center;
+		font-size:30px;
+		font-family: arial;
+	    position: fixed;
+        margin: auto;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    z-index:99;
+	}
+</style> 
+</head>
+<body id = "foo" bgcolor="#EAF8FF" style = "padding-left:30px;padding-bottom:30px">
+
+	
+	<script src="test.js"></script>
+	<script type = "text/javascript">
+		document.body.addEventListener("click", function (evt) {
+		clear();
+    	run();
+	});</script>
+
+	<script type = "text/javascript">
+		window.onload = function() {
+	  		window.setTimeout(fadeout, 1000); //1 seconds
+		}
+		function fadeout() {
+			document.getElementById('fadeout').style.opacity = '0';
+		} 
+	</script>
+	<div id="fadeout">Click Me</div>
+</body>
+</html>
