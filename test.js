@@ -22,10 +22,17 @@ function run() {
 	rectTile(context, levels, 50);
 	context = createCanvas();
 	arcTile(context, levels/2);
+
+	context = createCanvas();
+	starTile(context, context.canvas.height/(levels/5));
+	
 	context = createCanvas();
 	tileStar(context, context.canvas.height/(levels/10));
 	context = createCanvas();
 	joyD(context, levels);
+	context = createCanvas();
+	bars(context, levels);
+
 }
 
 function createCanvas() {
@@ -255,4 +262,81 @@ function starBurst(context, startX, startY, tileH, tileW = null){
 			context.stroke();
 		}
 	}
+}
+
+function bars(context, levels){
+	context.fillStyle = 'white';
+	context.fill();
+	var step = 35;
+	var size = 500;    
+	var j = context.canvas.height/2;
+	var variance = 20;
+	for (var gen = 0; gen < levels * 4; gen++){
+	    var line =[];
+	    for (var i = step; i <= size - step; i+=step){
+	          var rand = Math.random() * variance * 2 - 1*variance;
+	          var point = {x: i,y: j + rand};
+	          line.push(point);
+	    }
+	    for (var i = 0; i < line.length - 3; i++){
+	          context.beginPath();
+	          context.strokeStyle=  'rgba(0, 0, 0, .6)';
+	          context.moveTo(line[i].x, line[i].y);
+	          var xc = (line[i].x + line[i+1].x) /2 ;
+	          var yc = (line[i].y + line[i+1].y) /2 ;
+	         // console.log(line[i].x, line[i].y);
+	          context.quadraticCurveTo(line[i+1].x, line[i+1].y,xc,yc);
+	          context.stroke();
+	    }
+	    variance +=1;
+	}
+}
+
+
+function fillTransparent(context, val) {
+      context.rect(0, 0, context.canvas.width, context.canvas.height);
+      context.fillStyle = 'rgba(255, 255, 255,' + val + ')';
+      context.fill();
+}
+
+function starTile(context, height, width = null){
+	if (width == null){
+		width = height
+	}
+	var totH = context.canvas.height;
+	var totW = context.canvas.width;
+		for(var i = 0 ; i < totW;i+=width){
+			for(var j = 0 ; j < totH; j +=height){
+				starBlock(context, i, j , height)
+			}
+		}
+}
+
+function starBlock(context, startX, startY, tileH, tileW = null){
+	if (tileW == null){
+		tileW = tileH
+	}
+	var maxStar = 5;
+	var minStar = 3;
+	var radius = 2;
+	var numStars = Math.round( Math.random() * (maxStar- minStar) +minStar);
+	var coords = [];
+	for (var i = 0; i < numStars; i++){
+		var coord = {x: Math.random()*(startX - (startX - tileW))  + startX ,  y:Math.random()*(startY - (startY - tileH))  + startY };
+		coords.push(coord);
+	}
+	for (var i = 0 ; i < coords.length;i++){
+		context.beginPath();
+		context.arc(coords[i].x, coords[i].y,radius,0,2*Math.PI);
+		context.stroke();
+	}
+
+	//draw lines between
+	for (var i = 0 ; i < coords.length - 1;i++){
+		context.beginPath();
+		context.moveTo(coords[i].x, coords[i].y);
+		context.lineTo(coords[i + 1].x, coords[i+1].y);
+		context.stroke();
+	}
+
 }
