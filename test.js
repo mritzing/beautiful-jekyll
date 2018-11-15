@@ -20,16 +20,12 @@ function run() {
 	squareTile(context, levels, false);
 	context = createCanvas();
 	rectTile(context, levels, 50);
-	console.log("uh")
 	context = createCanvas();
 	arcTile(context, levels/2);
 	context = createCanvas();
-	if (levels < 5){
-		joyD(context, 5/4);
-	}
-	else {
-		joyD(context, levels/4);
-	}
+	tileStar(context, context.canvas.height/(levels/10));
+	context = createCanvas();
+	joyD(context, levels);
 }
 
 function createCanvas() {
@@ -89,17 +85,13 @@ function squareTile(context, dimension, diag) {
 
 function rectTile(context, rows, segments) {
 	// height /width per tile
-	console.log(rows);
 	var height = context.canvas.height / rows;
-	console.log(height);
 	var width = context.canvas.width / segments;
 	for (var r = 1; r < rows - 1; r++) {
 		prevY = r * height + height / 2;
 		for (var c = 0; c < segments; c++) {
 			midY = r * height + height / 2;
-			console.log(rows,segments, r,c)
-			var ratio = (r + c) / (rows + segments)
-			console.log(ratio);
+			var ratio = (r + c) / (rows + segments);
 			randNum = (Math.random() * 3 * ratio ** 3 * height);
 			//var ratio = Math.log( (r* c ) )/ Math.log((rows * segments));
 			//console.log(ratio);
@@ -172,8 +164,9 @@ function curveRep(context, segments) {
 	}
 }
 //now with lists
-function joyD(context, step) {
+function joyD(context, levels) {
 	var size = context.canvas.width;
+	var step = size / levels;
 	lines = [];
 	for (var i = step; i <= size - step; i += step) {
 		var line = [];
@@ -193,5 +186,73 @@ function joyD(context, step) {
 			context.lineTo(lines[i][j].x, lines[i][j].y);
 		}
 		context.stroke();
+	}
+}
+
+async function tileStar(context, height, width = null){
+	if (width == null){
+		width = height
+	}
+	var totH = context.canvas.height;
+	var totW = context.canvas.width;
+		for(var i = 0 ; i < totW;i+=width){
+			for(var j = 0 ; j < totH; j +=height){
+				starBurst(context, i, j , height);
+			}
+		}
+}
+
+
+
+function starBurst(context, startX, startY, tileH, tileW = null){
+	if (tileW == null){
+		tileW = tileH
+	}
+	var maxStar = 5;
+	var minStar = 3;
+	var radius = 5;
+	//	var numStars = Math.round( Math.random() * (maxStar- minStar) +minStar);
+	var numStars = 5;
+	var coords = [];
+	/**
+		(lx,ly) ---				-- (coords[i].rx,ly)
+		|   		     				    |
+		(lx,coords[i].ry) ----- (coords[i].rx,coords[i].ry)
+	**/
+	for (var i = 0; i < numStars; i++){
+		var coord = {x: Math.random()*(tileW)  + startX ,  y:Math.random()*(tileH)  + startY , lx: startX, ly: startY  , rx : startX + tileW, ry :startY + tileH};
+		coords.push(coord);
+	}
+	context.globalAlpha = .3;
+	for (var i = 0 ; i < coords.length - 1;i++){
+		for( gen = 0 ; gen <50; gen ++){
+			context.beginPath();
+			context.moveTo(coords[i].x, coords[i].y);
+			var midX = (coords[i].x + coords[i+1].x )/2;
+			var midY = (coords[i].y + coords[i+1].y )/2;
+			if ( i == 0) {
+				pullX = (Math.random()*(midX - coords[i].lx)/2)/2+ coords[i].lx;
+				pullY = (Math.random()*(midY - coords[i].ly)/2)/2+ coords[i].ly;
+				context.strokeStyle = "#21A3CC";
+			}
+			else if (i == 1) {
+				pullX = coords[i].rx - (Math.random()*(coords[i].rx - midX)/2)/2;
+				pullY = (Math.random()*(midY - coords[i].ly)/2)/2+ coords[i].ly;
+
+				context.strokeStyle = "#FF5182";
+			}
+			else if ( i ==2) {
+				pullX = (Math.random()*(midX - coords[i].lx)/2)/2+ coords[i].lx;
+				pullY = coords[i].ry - (Math.random()*(coords[i].ry - midY)/2)/2;
+				context.strokeStyle = "#FFF13C";
+			}
+			else {
+				pullX = coords[i].rx - (Math.random()*(coords[i].rx - midX)/2)/2;
+				pullY = coords[i].ry - (Math.random()*(coords[i].ry - midY)/2)/2;
+				context.strokeStyle = "#000000";
+			}
+			context.quadraticCurveTo(pullX, pullY,coords[i + 1].x, coords[i+1].y);
+			context.stroke();
+		}
 	}
 }
