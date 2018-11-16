@@ -19,20 +19,20 @@ function run() {
 	context = createCanvas();
 	squareTile(context, levels, false);
 	context = createCanvas();
-	rectTile(context, levels, 50);
-	context = createCanvas();
 	arcTile(context, levels/2);
+	context = createCanvas();
+	rectTile(context, levels, 50);
+
+	//finished tutorials
 
 	context = createCanvas();
-	starTile(context, context.canvas.height/(levels/5));
-	
-	context = createCanvas();
-	tileStar(context, context.canvas.height/(levels/10));
+	bars(context, levels);
 	context = createCanvas();
 	joyD(context, levels);
 	context = createCanvas();
-	bars(context, levels);
-
+	starTile(context, context.canvas.height/(levels/5)); // add scaling to radius
+	context = createCanvas();
+	tileStar(context, context.canvas.height/(levels/10))
 }
 
 function createCanvas() {
@@ -339,4 +339,57 @@ function starBlock(context, startX, startY, tileH, tileW = null){
 		context.stroke();
 	}
 
+}
+
+
+function polyTile(context, height, width = null){
+	if (width == null){
+		width = height
+	}
+	var totH = context.canvas.height;
+	var totW = context.canvas.width;
+		for(var i = 0 ; i < totW;i+=width){
+			for(var j = 0 ; j < totH; j +=height){
+				polyBlock(context, i, j , height)
+			}
+		}
+}
+
+function grayscale(seed =1 ){
+	//'rgba(255, 255, 255,1)';
+	console.log(seed);
+	num =  255 -((255)/seed);
+	var r = num;
+	var b = num;
+	var g =num;
+	var a = 1;
+	return ('rgba(' + r + ', '+ b+ ', ' + g +', ' + 1 + ')');
+
+}
+
+function polyBlock(context, startX, startY,tileH, tileW = null){
+	if (tileW == null){
+		tileW = tileH
+	}
+	var distanceRatio = (startX/tileW + startY/tileH)/2;
+	var minStar =  distanceRatio*5+  2;
+	var maxStar =  minStar;
+	var radius = 2;
+	var numStars = Math.round( Math.random() * (maxStar- minStar) +minStar);
+	var coords = [];
+	for (var i = 0; i < numStars; i++){
+		var coord = {x: Math.random()*(startX - (startX - tileW))  + startX ,  y:Math.random()*(startY - (startY - tileH))  + startY };
+		coords.push(coord);
+	}
+	context.fillStyle = grayscale(distanceRatio);
+	context.strokeStyle = 'white';
+	context.beginPath();
+	context.moveTo(coords[0].x, coords[0].y);
+	//draw lines between
+	for (var i = 1 ; i < coords.length;i++){
+		context.lineTo(coords[i].x, coords[i].y);
+		context.stroke();
+	}
+	context.closePath();
+	context.fill();
 }
